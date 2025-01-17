@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Estructuras de Control en IdeaScript</title>
+    <title>Curso IdeaScript</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -108,9 +108,52 @@
 </head>
 <body>
     <div class="container">
-        <h1>Estructuras de Control en IdeaScript</h1>
+        <h1>Conceptos basicos de programación en IdeaScript</h1>
         
         <div class="grid">
+            <!-- Variable -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="4" y="4" width="16" height="16" rx="2" />
+                            <path d="M4 4l16 16" />
+                        </svg>
+                    </div>
+                    <h2 class="card-title">Variable</h2>
+                </div>
+                <p class="card-description">
+                    Una variable es un espacio en memoria que se utiliza para almacenar un valor. Este valor puede ser de diferentes tipos, como números, texto, booleanos, entre otros. Este espacio en memoria se identifica por un nombre unico y se puede modificar en cualquier momento.
+                </p>
+                <div class="code-block">
+                    <pre>Dim nombre as string
+            nombre = "Juan"
+                    </pre>
+                </div>
+                <a href="Variable/Var.html" class="button">Ver Visualización</a>
+            </div>
+            <!-- If -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M2 12h20M12 2v20M2 12l10-10M22 12l-10 10"/>
+                        </svg>
+                    </div>
+                    <h2 class="card-title">If</h2>
+                </div>
+                <p class="card-description">
+                    La estructura If es una de las más básicas y fundamentales en programación. Se utiliza para tomar decisiones basadas en una condición.
+                </p>
+                <div class="code-block">
+                    <pre>If edad >= 18 Then
+            MsgBox("Es mayor de edad")
+            Else
+            MsgBox("Es menor de edad")
+            End if</pre>
+                </div>
+                <a href="If/If.html" class="button">Ver Visualización</a>
+            </div>
             <!-- Ciclo For -->
             <div class="card">
                 <div class="card-header">
@@ -157,28 +200,6 @@ Loop</pre>
                 <a href="While/While.html" class="button">Ver Visualización</a>
             </div>
 
-            <!-- If -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M2 12h20M12 2v20M2 12l10-10M22 12l-10 10"/>
-                        </svg>
-                    </div>
-                    <h2 class="card-title">If</h2>
-                </div>
-                <p class="card-description">
-                    La estructura If es una de las más básicas y fundamentales en programación. Se utiliza para tomar decisiones basadas en una condición.
-                </p>
-                <div class="code-block">
-                    <pre>If edad >= 18 Then
-    MsgBox("Es mayor de edad")
-Else
-    MsgBox("Es menor de edad")
-End if</pre>
-                </div>
-                <a href="If/If.html" class="button">Ver Visualización</a>
-            </div>
             
         </div>
     </div>

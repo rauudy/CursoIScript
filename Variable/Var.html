@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Variables</h2>
+        <p class="intro">Una variable es como una caja que puede almacenar diferentes valores</p>
+
+        <div class="variable-box">
+            <span class="variable-name">miVariable</span>
+            <span id="value">undefined</span>
+            <span class="type-indicator" id="typeIndicator"></span>
+        </div>
+
+        <div class="control-section">
+            <select id="dataType">
+                <option value="auto">Auto-detectar tipo</option>
+                <option value="number">Número</option>
+                <option value="string">Texto</option>
+                <option value="boolean">Booleano</option>
+            </select>
+
+            <input type="text" id="newValue" placeholder="Ingresa un nuevo valor">
+
+            <div class="checkbox-wrapper">
+                <input type="checkbox" id="showType" checked>
+                <label for="showType">Mostrar tipo</label>
+            </div>
+        </div>
+
+
+        <div class="button-container">
+            <button onclick="updateVariable()">Asignar Valor</button>
+        </div>
+
+        <p id="explanation">La variable está sin definir (undefined)</p>
+    </div>
+
+    <script>
+        function getType(value, forcedType) {
+            if (forcedType !== 'auto') return forcedType;
+
+            if (value.toLowerCase() === 'true' || value.toLowerCase() === 'false') {
+                return 'boolean';
+            }
+            if (!isNaN(value) && value !== '') {
+                return 'number';
+            }
+            return 'string';
+        }
+
+        function formatValue(value, type) {
+            if (type === 'boolean') {
+                return value.toLowerCase() === 'true' ? 'true' : 'false';
+            }
+            if (type === 'number') {
+                return Number(value);
+            }
+            return value;
+        }
+
+        function updateVariable() {
+            const box = document.querySelector('.variable-box');
+            const value = document.getElementById('newValue').value;
+            const valueDisplay = document.getElementById('value');
+            const explanation = document.getElementById('explanation');
+            const typeIndicator = document.getElementById('typeIndicator');
+            const showType = document.getElementById('showType').checked;
+            const forcedType = document.getElementById('dataType').value;
+
+            box.classList.remove('animation');
+            void box.offsetWidth;
+            box.classList.add('animation');
+
+            if (!value) {
+                valueDisplay.textContent = 'undefined';
+                typeIndicator.textContent = showType ? 'undefined' : '';
+                explanation.textContent = 'La variable está sin definir (undefined)';
+                return;
+            }
+
+            const type = getType(value, forcedType);
+            const formattedValue = formatValue(value, type);
+
+            valueDisplay.textContent = type === 'string' ? `"${formattedValue}"` : formattedValue;
+            typeIndicator.textContent = showType ? type : '';
+
+            let explanationText = 'La variable contiene ';
+            switch (type) {
+                case 'number':
+                    explanationText += `el número ${formattedValue}`;
+                    break;
+                case 'boolean':
+                    explanationText += `el valor booleano ${formattedValue}`;
+                    break;
+                case 'string':
+                    explanationText += `el texto "${formattedValue}"`;
+                    break;
+            }
+            explanation.textContent = explanationText;
+
+            document.getElementById('newValue').value = '';
+        }
+
+        document.getElementById('newValue').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                updateVariable();
+            }
+        });
+    </script>
+</body>
+
+</html>
