@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Estructura IF</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 800px;
+            width: 90%;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+
+        .flowchart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .diamond {
+            width: 150px;
+            /* Ajustar el tamaño del rombo */
+            height: 150px;
+            background: #3b82f6;
+            position: relative;
+            margin: 20px 0;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transform: rotate(45deg);
+            transition: background-color 0.3s, box-shadow 0.3s;
+            border: 2px solid #2563eb;
+            /* Bordes más definidos */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* Sombra para darle profundidad */
+        }
+
+        .diamond.active {
+            background-color: #ffd700;
+            border-color: #eab308;
+            /* Cambia el color del borde al activarse */
+            color: black;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            /* Mayor sombra al activarse */
+        }
+
+        .diamond-text {
+            transform: rotate(-45deg);
+            /* Corrige la inclinación del texto */
+            font-weight: bold;
+            font-size: 16px;
+            /* Tamaño de fuente ajustado */
+            padding: 10px;
+            text-align: center;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 400px;
+            margin-top: 20px;
+        }
+
+        .box {
+            width: 180px;
+            height: 80px;
+            background: #4b5563;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .box.active {
+            background-color: #ffd700;
+            color: black;
+        }
+
+        .path {
+            position: relative;
+            width: 2px;
+            height: 40px;
+            background: #4b5563;
+        }
+
+        .path-label {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 5px 10px;
+            background: white;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .path-label.true {
+            left: 20px;
+            color: #22c55e;
+        }
+
+        .path-label.false {
+            right: 20px;
+            color: #ef4444;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .input-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        input[type="number"] {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            background-color: #3b82f6;
+            color: white;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2563eb;
+        }
+
+        .output-box {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 10px;
+            margin: 20px 0;
+            min-height: 60px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h1 class="title">Estructura IF - Control de Edad</h1>
+
+        <div class="input-container">
+            <label for="ageInput">Ingresa una edad:</label>
+            <input type="number" id="ageInput" min="0" max="120" value="15">
+        </div>
+
+        <div class="flowchart">
+            <div class="diamond" id="condition">
+                <div class="diamond-text">¿Edad >= 18?</div>
+            </div>
+            <div class="path">
+                <span class="path-label false">Falso</span>
+                <span class="path-label true">Verdadero</span>
+            </div>
+            <div class="result-row">
+                <div class="box" id="falseBlock">Es menor de edad</div>
+                <div class="box" id="trueBlock">Es mayor de edad</div>
+            </div>
+        </div>
+
+        <div class="output-box" id="outputBox">
+            Resultado aparecerá aquí...
+        </div>
+
+        <div class="controls">
+            <button id="checkBtn">Comprobar</button>
+            <button id="resetBtn">Reiniciar</button>
+        </div>
+    </div>
+
+    <script>
+        const condition = document.getElementById('condition');
+        const trueBlock = document.getElementById('trueBlock');
+        const falseBlock = document.getElementById('falseBlock');
+        const outputBox = document.getElementById('outputBox');
+        const checkBtn = document.getElementById('checkBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const ageInput = document.getElementById('ageInput');
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function checkAge() {
+            // Reset styles
+            condition.classList.remove('active');
+            trueBlock.classList.remove('active');
+            falseBlock.classList.remove('active');
+
+            const age = parseInt(ageInput.value);
+
+            // Highlight condition
+            condition.classList.add('active');
+            await sleep(2000);
+
+            if (age >= 18) {
+                trueBlock.classList.add('active');
+                outputBox.textContent = `La edad es ${age} años. La persona ES mayor de edad.`;
+                outputBox.style.color = '#22c55e';
+            } else {
+                falseBlock.classList.add('active');
+                outputBox.textContent = `La edad es ${age} años. La persona NO es mayor de edad.`;
+                outputBox.style.color = '#ef4444';
+            }
+        }
+
+        function reset() {
+            condition.classList.remove('active');
+            trueBlock.classList.remove('active');
+            falseBlock.classList.remove('active');
+            outputBox.textContent = 'Resultado aparecerá aquí...';
+            outputBox.style.color = 'black';
+            ageInput.value = '15';
+        }
+
+        checkBtn.addEventListener('click', checkAge);
+        resetBtn.addEventListener('click', reset);
+    </script>
+</body>
+
+</html>

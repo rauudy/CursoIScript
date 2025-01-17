@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Estructuras de Control en IdeaScript</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a1a1a;
+            margin-bottom: 40px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+            transition: transform 0.2s ease;
+            display: flex; 
+            flex-direction: column; 
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .card-icon {
+            background-color: #e8f4ff;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            color: #1a1a1a;
+            margin: 0;
+        }
+
+        .card-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .code-block {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+
+        pre {
+            margin: 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+            font-size: 14px;
+            color: #1a1a1a;
+        }
+
+        .button {
+            display: block;
+            width: 92%;
+            padding: 12px;
+            background-color: #3b82f6;
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background-color 0.2s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: auto;
+        }
+
+        .button:hover {
+            background-color: #2563eb;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Estructuras de Control en IdeaScript</h1>
+        
+        <div class="grid">
+            <!-- Ciclo For -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                    <h2 class="card-title">Ciclo For</h2>
+                </div>
+                <p class="card-description">
+                    El ciclo For es una estructura de control que permite repetir un bloque de código un número específico de veces. 
+                    Es ideal cuando sabemos exactamente cuántas iteraciones necesitamos.
+                </p>
+                <div class="code-block">
+                    <pre>For i = 1 to 5
+    MsgBox(i)
+Next i</pre>
+                </div>
+                <a href="For/For.html" class="button">Ver Visualización</a>
+            </div>
+
+            <!-- Do While -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.3"/>
+                        </svg>
+                    </div>
+                    <h2 class="card-title">Do While</h2>
+                </div>
+                <p class="card-description">
+                    El ciclo Do While ejecuta un bloque de código mientras una condición sea verdadera. 
+                    La condición se evalúa al final, por lo que el código se ejecuta al menos una vez.
+                </p>
+                <div class="code-block">
+                    <pre>i = 1
+do while i <= 5
+    MsgBox(i)
+    i = i + 1
+Loop</pre>
+                </div>
+                <a href="While/While.html" class="button">Ver Visualización</a>
+            </div>
+
+            <!-- If -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M2 12h20M12 2v20M2 12l10-10M22 12l-10 10"/>
+                        </svg>
+                    </div>
+                    <h2 class="card-title">If</h2>
+                </div>
+                <p class="card-description">
+                    La estructura If es una de las más básicas y fundamentales en programación. Se utiliza para tomar decisiones basadas en una condición.
+                </p>
+                <div class="code-block">
+                    <pre>If edad >= 18 Then
+    MsgBox("Es mayor de edad")
+Else
+    MsgBox("Es menor de edad")
+End if</pre>
+                </div>
+                <a href="If/If.html" class="button">Ver Visualización</a>
+            </div>
+            
+        </div>
+    </div>
+</body>
+</html>

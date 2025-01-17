@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ciclo For</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="card">
+        <h1 class="title">Ciclo For</h1>
+        
+        <div class="code-container">
+            <div class="code-line" id="forLine">For i = 1 to 5</div>
+            <div class="code-line indent" id="msgLine">    MsgBox(i)</div>
+            <div class="code-line" id="nextLine">Next i</div>
+        </div>
+
+        <div class="status-container">
+            <div class="status-box">
+                <div class="status-label">Valor actual de i:</div>
+                <div class="status-value" id="counterValue">1</div>
+            </div>
+            <div class="status-box">
+                <div class="status-label">Condición:</div>
+                <div class="condition"><span id="conditionText">1 ≤ 5</span></div>
+                <div class="condition-result true" id="conditionResult">Verdadero</div>
+            </div>
+        </div>
+
+        <div class="phase" id="currentPhase"></div>
+
+        <div class="output-box" id="outputBox">
+            <!-- Los mensajes aparecerán aquí -->
+        </div>
+
+        <div class="controls">
+            <button id="playBtn">Iniciar</button>
+            <button id="resetBtn">Reiniciar</button>
+        </div>
+    </div>
+
+    <script>
+        const forLine = document.getElementById('forLine');
+        const msgLine = document.getElementById('msgLine');
+        const nextLine = document.getElementById('nextLine');
+        const counterValue = document.getElementById('counterValue');
+        const conditionText = document.getElementById('conditionText');
+        const conditionResult = document.getElementById('conditionResult');
+        const currentPhase = document.getElementById('currentPhase');
+        const playBtn = document.getElementById('playBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const outputBox = document.getElementById('outputBox');
+
+        let counter = 1;  // En IdeaScript empezamos en 1
+        let currentStep = 0;
+        let isPlaying = false;
+        let interval;
+        const maxValue = 5;
+
+        function updateUI() {
+            // Limpiar resaltado anterior
+            forLine.classList.remove('active');
+            msgLine.classList.remove('active');
+            nextLine.classList.remove('active');
+
+            // Actualizar contador y condición
+            counterValue.textContent = counter;
+            conditionText.textContent = `${counter} ≤ ${maxValue}`;
+            
+            const isConditionTrue = counter <= maxValue;
+            conditionResult.textContent = isConditionTrue ? 'Verdadero' : 'Falso';
+            conditionResult.className = `condition-result ${isConditionTrue ? 'true' : 'false'}`;
+
+            // Actualizar fase actual
+            const phase = currentStep % 3;
+            switch(phase) {
+                case 0:
+                    currentPhase.textContent = 'Evaluando condición del ciclo';
+                    forLine.classList.add('active');
+                    break;
+                case 1:
+                    currentPhase.textContent = 'Mostrando mensaje';
+                    msgLine.classList.add('active');
+                    if (counter <= maxValue) {
+                        const msgDiv = document.createElement('div');
+                        msgDiv.className = 'output-line active';
+                        msgDiv.textContent = `Mensaje: ${counter}`;
+                        outputBox.appendChild(msgDiv);
+                        outputBox.scrollTop = outputBox.scrollHeight;
+                    }
+                    break;
+                case 2:
+                    currentPhase.textContent = 'Incrementando el contador';
+                    nextLine.classList.add('active');
+                    break;
+            }
+
+            // Actualizar botón de play
+            playBtn.textContent = isPlaying ? 'Pausar' : 'Iniciar';
+        }
+
+        function nextStep() {
+            if (counter > maxValue) {
+                stopAnimation();
+                return;
+            }
+
+            if (currentStep % 3 === 2) {
+                counter++;
+            }
+            currentStep++;
+            updateUI();
+        }
+
+        function startAnimation() {
+            isPlaying = true;
+            interval = setInterval(() => {
+                if (counter > maxValue) {
+                    stopAnimation();
+                    return;
+                }
+                nextStep();
+            }, 3000);
+            updateUI();
+        }
+
+        function stopAnimation() {
+            isPlaying = false;
+            clearInterval(interval);
+            updateUI();
+        }
+
+        function resetAnimation() {
+            stopAnimation();
+            counter = 1;  // En IdeaScript empezamos en 1
+            currentStep = 0;
+            outputBox.innerHTML = '';
+            updateUI();
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                stopAnimation();
+            } else {
+                startAnimation();
+            }
+        });
+
+        resetBtn.addEventListener('click', resetAnimation);
+
+        // Inicializar UI
+        updateUI();
+    </script>
+</body>
+</html>

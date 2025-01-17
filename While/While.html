@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ciclo Do While</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="card">
+        <h1 class="title">Ciclo Do While</h1>
+        
+        <div class="code-container">
+            <div class="code-line" id="initLine">i = 1</div>
+            <div class="code-line" id="doLine">do while i <= 5</div>
+            <div class="code-line indent" id="msgLine">    MsgBox(i)</div>
+            <div class="code-line indent" id="incrementLine">    i = i + 1</div>
+            <div class="code-line" id="loopLine">Loop</div>
+        </div>
+
+        <div class="info-box">
+            A diferencia del While, el Do While siempre ejecuta el código al menos una vez, ya que la condición se evalúa al final.
+        </div>
+
+        <div class="status-container">
+            <div class="status-box">
+                <div class="status-label">Valor actual de i:</div>
+                <div class="status-value" id="counterValue">1</div>
+            </div>
+            <div class="status-box">
+                <div class="status-label">Condición:</div>
+                <div class="condition"><span id="conditionText">1 ≤ 5</span></div>
+                <div class="condition-result true" id="conditionResult">Verdadero</div>
+            </div>
+        </div>
+
+        <div class="phase" id="currentPhase"></div>
+
+        <div class="output-box" id="outputBox">
+            <!-- Los mensajes aparecerán aquí -->
+        </div>
+
+        <div class="controls">
+            <button id="playBtn">Iniciar</button>
+            <button id="resetBtn">Reiniciar</button>
+        </div>
+    </div>
+
+    <script>
+        const initLine = document.getElementById('initLine');
+        const doLine = document.getElementById('doLine');
+        const msgLine = document.getElementById('msgLine');
+        const incrementLine = document.getElementById('incrementLine');
+        const loopLine = document.getElementById('loopLine');
+        const counterValue = document.getElementById('counterValue');
+        const conditionText = document.getElementById('conditionText');
+        const conditionResult = document.getElementById('conditionResult');
+        const currentPhase = document.getElementById('currentPhase');
+        const playBtn = document.getElementById('playBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const outputBox = document.getElementById('outputBox');
+
+        let counter = 1;
+        let currentStep = 0;
+        let isPlaying = false;
+        let interval;
+        const maxValue = 5;
+
+        function updateUI() {
+            // Limpiar resaltado anterior
+            const allLines = [initLine, doLine, msgLine, incrementLine, loopLine];
+            allLines.forEach(line => line.classList.remove('active'));
+
+            // Actualizar contador y condición
+            counterValue.textContent = counter;
+            conditionText.textContent = `${counter} ≤ ${maxValue}`;
+            
+            const isConditionTrue = counter <= maxValue;
+            conditionResult.textContent = isConditionTrue ? 'Verdadero' : 'Falso';
+            conditionResult.className = `condition-result ${isConditionTrue ? 'true' : 'false'}`;
+
+            // Actualizar fase actual
+            const phase = currentStep % 4;
+            switch(phase) {
+                case 0:
+                    currentPhase.textContent = 'Inicio del ciclo';
+                    doLine.classList.add('active');
+                    break;
+                case 1:
+                    currentPhase.textContent = 'Mostrando mensaje';
+                    msgLine.classList.add('active');
+                    const msgDiv = document.createElement('div');
+                    msgDiv.className = 'output-line active';
+                    msgDiv.textContent = `Mensaje: ${counter}`;
+                    outputBox.appendChild(msgDiv);
+                    outputBox.scrollTop = outputBox.scrollHeight;
+                    break;
+                case 2:
+                    currentPhase.textContent = 'Incrementando el contador';
+                    incrementLine.classList.add('active');
+                    break;
+                case 3:
+                    currentPhase.textContent = 'Evaluando condición para continuar';
+                    loopLine.classList.add('active');
+                    break;
+            }
+
+            // Actualizar botón de play
+            playBtn.textContent = isPlaying ? 'Pausar' : 'Iniciar';
+        }
+
+        function nextStep() {
+            const phase = currentStep % 4;
+            
+            if (phase === 2) {
+                counter++;
+            }
+            
+            if (phase === 3 && counter > maxValue) {
+                stopAnimation();
+                return;
+            }
+            
+            currentStep++;
+            updateUI();
+        }
+
+        function startAnimation() {
+            isPlaying = true;
+            interval = setInterval(() => {
+                if (counter > maxValue && currentStep % 4 === 3) {
+                    stopAnimation();
+                    return;
+                }
+                nextStep();
+            }, 3000);
+            updateUI();
+        }
+
+        function stopAnimation() {
+            isPlaying = false;
+            clearInterval(interval);
+            updateUI();
+        }
+
+        function resetAnimation() {
+            stopAnimation();
+            counter = 1;
+            currentStep = 0;
+            outputBox.innerHTML = '';
+            updateUI();
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                stopAnimation();
+            } else {
+                startAnimation();
+            }
+        });
+
+        resetBtn.addEventListener('click', resetAnimation);
+
+        // Inicializar UI
+        updateUI();
+    </script>
+</body>
+</html>

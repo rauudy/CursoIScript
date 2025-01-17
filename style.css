@@ -1,0 +1,158 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f0f2f5;
+}
+
+.card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 20px;
+    max-width: 600px;
+    width: 90%;
+}
+
+.title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #1a1a1a;
+}
+
+.code-container {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+    font-family: monospace;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.code-line {
+    padding: 3px 6px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.code-line.active {
+    background-color: #ffd700;
+}
+
+.indent {
+    margin-left: 20px;
+}
+
+.status-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 20px 0;
+}
+
+.status-box {
+    text-align: center;
+}
+
+.status-label {
+    font-size: 14px;
+    color: #666;
+}
+
+.status-value {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.condition {
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+.condition-result {
+    font-weight: bold;
+}
+
+.condition-result.true {
+    color: #22c55e;
+}
+
+.condition-result.false {
+    color: #ef4444;
+}
+
+.phase {
+    text-align: center;
+    font-size: 18px;
+    margin: 20px 0;
+    min-height: 27px;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: #3b82f6;
+    color: white;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #2563eb;
+}
+
+button:disabled {
+    background-color: #93c5fd;
+    cursor: not-allowed;
+}
+
+#resetBtn {
+    background-color: #6b7280;
+}
+
+#resetBtn:hover {
+    background-color: #4b5563;
+}
+
+.output-box {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 10px;
+    margin: 20px 0;
+    min-height: 60px;
+    max-height: 120px;
+    overflow-y: auto;
+}
+
+.output-line {
+    margin: 5px 0;
+    padding: 3px 6px;
+    border-radius: 4px;
+}
+
+.output-line.active {
+    background-color: #e2e8f0;
+}
+
+.info-box {
+    background-color: #e8f4ff;
+    border-radius: 6px;
+    padding: 10px;
+    margin: 20px 0;
+    font-size: 14px;
+    color: #1e40af;
+}
